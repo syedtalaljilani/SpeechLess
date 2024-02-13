@@ -2,7 +2,8 @@ import { Fragment,useState} from 'react'
 import axios from 'axios';
 function App() {
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
-
+  const [question,setQuestion] = useState('')
+  const query = question
   const handleClick = () => {
     // Send a message to the background script to request the current URL
     chrome.runtime.sendMessage({ type: 'GET_CURRENT_URL' }, (response) => {
@@ -27,7 +28,22 @@ function App() {
       }
     });
   };
+  const sendQueryAndGetSummary = async (query:string) => {
+    var vecteraApiEndpoint ='https://api.vectara.io/v1/query'
+    try {
+      const response = await axios.post(vecteraApiEndpoint, {
+        query: "Python",
+        apiKey: 'zwt_DFTwJbo_-V-hbfwIHaF-Tu7pFEUnAUgH-VeZ4w', // Include your API key if required
+      });
   
+      // Assuming the API response contains a 'summary' field
+      const summary = response.data.summary;
+  
+      console.log('Summary:', summary);
+    } catch (error:any) {
+      console.error('Error:', error.message);
+    }
+  };
   return (
    <Fragment>
     <div className='w-[300px] h-[500px] overflow-y-auto border-2 border-amber-400 bg-[#1a1a1a] font-mono'>
@@ -36,8 +52,12 @@ function App() {
      </div>
      <h1 className='text-2xl text-center text-warning'>Speechless</h1>
      <div className='flex flex-col items-center'>
+     <input type="text" placeholder="Type here" name='question' onChange={(e)=>e.target.value} className="input input-bordered w-full max-w-xs" />
      <div className='h-[300px] w-fit'>
-     <p className='text-white '>{currentUrl}</p>
+     
+     </div>
+     <div>
+     <button className="btn btn-outline btn-warning w-[200px]" onClick={()=>sendQueryAndGetSummary(question)}>Sumaraise Text Text</button>
      </div>
      <div>
      <button className="btn btn-outline btn-warning w-[200px]" onClick={handleClick}>Analysis Text</button>
