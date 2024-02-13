@@ -4,7 +4,7 @@
     "version": "1.0",
     "description": "",
     "action": {
-        "default_popup": "./index.html"
+        "default_popup": "index.html"
     },
     "permissions": [
         "scripting",
@@ -18,5 +18,8 @@
     "icons": {
         "16": "./vite.svg",
         "32": "./vite.svg"
-    }
+    },
+    "background": {
+        "service_worker": "./background.js"
+      }
   }
