@@ -1,0 +1,12 @@
+{
+  "name": "speechless",
+  "version": "1.0.0",
+  "description": "A Chatbot Explain your Very Text",
+  "main": "index.js",
+  "scripts": {
+    "run": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
